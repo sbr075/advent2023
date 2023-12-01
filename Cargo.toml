@@ -1,0 +1,13 @@
+[package]
+name = "aoc2023"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+clap = { version = "4.4.10", features = ["debug", "derive"] }
+log = "0.4.20"
+rstest = "0.18.2"
+simple_logger = "4.3.0"
