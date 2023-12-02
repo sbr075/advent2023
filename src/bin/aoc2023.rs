@@ -1,6 +1,6 @@
 use clap::Parser;
 
-use aoc2023::{log, tasks::solutions};
+use aoc2023::{logger, tasks::solutions, utils};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about=None)]
@@ -10,16 +10,14 @@ struct Args {
 
     #[clap(short, long)]
     pub task: Option<i32>,
-
-    #[clap(long, default_value_t = false)]
-    pub debug: bool,
 }
 
 fn main() -> Result<(), anyhow::Error> {
-    log::configure_log()?;
-
     let args = Args::parse();
-    solutions::execute_task(&args.day, &args.task)?;
+    logger::configure_log()?;
+
+    let input = utils::file::read_input()?;
+    solutions::execute_task(&args.day, &args.task, &input)?;
 
     Ok(())
 }
