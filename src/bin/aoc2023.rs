@@ -7,9 +7,6 @@ use aoc2023::{logger, tasks::solutions, utils};
 struct Args {
     #[clap(short, long)]
     pub day: i32,
-
-    #[clap(short, long)]
-    pub task: Option<i32>,
 }
 
 fn main() -> Result<(), anyhow::Error> {
@@ -17,7 +14,6 @@ fn main() -> Result<(), anyhow::Error> {
     logger::configure_log()?;
 
     let input = utils::file::read_input()?;
-    solutions::execute_task(&args.day, &args.task, &input)?;
-
+    solutions::execute_task(&args.day, &input)?;
     Ok(())
 }

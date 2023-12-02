@@ -1,4 +1,4 @@
-use crate::utils::string;
+use crate::utils::string::{find_first, reverse_string};
 
 fn word_to_number(word: &str) -> Result<i32, anyhow::Error> {
     let number = match word {
@@ -11,7 +11,7 @@ fn word_to_number(word: &str) -> Result<i32, anyhow::Error> {
         "seven" => 7,
         "eight" => 8,
         "nine" => 9,
-        _ => word.parse::<i32>()?
+        _ => word.parse::<i32>()?,
     };
 
     Ok(number)
@@ -24,9 +24,9 @@ fn task1(input: &Vec<String>) -> Result<(), anyhow::Error> {
 
     let mut total = 0;
     for line in input {
-        let reversed = string::reverse_string(line)?;
-        let th = string::find_first(line, re)?;
-        let nd = string::find_first(&reversed, re)?;
+        let reversed = reverse_string(line)?;
+        let th = find_first(line, re)?;
+        let nd = find_first(&reversed, re)?;
 
         let n1 = th.parse::<i32>()?;
         let n2 = nd.parse::<i32>()?;
@@ -45,10 +45,10 @@ fn task2(input: &Vec<String>) -> Result<(), anyhow::Error> {
 
     let mut total = 0;
     for line in input {
-        let reversed = string::reverse_string(line)?;
-        let th = string::find_first(line, &re1)?;
-        let nd = string::find_first(&reversed, &re2)?;
-        let nd = string::reverse_string(&nd)?;
+        let reversed = reverse_string(line)?;
+        let th = find_first(line, &re1)?;
+        let nd = find_first(&reversed, &re2)?;
+        let nd = reverse_string(&nd)?;
 
         let n1 = word_to_number(&th)?;
         let n2 = word_to_number(&nd)?;
@@ -59,35 +59,9 @@ fn task2(input: &Vec<String>) -> Result<(), anyhow::Error> {
     Ok(())
 }
 
-pub fn solution(task: &Option<i32>, input: &Vec<String>) -> Result<(), anyhow::Error> {
+pub fn solution(input: &Vec<String>) -> Result<(), anyhow::Error> {
     log::info!("Finding solutions for day 1");
-
-    // Not pretty
-    match task {
-        Some(task) => match task {
-            1 => task1(input)?,
-            2 => task2(input)?,
-            _ => anyhow::bail!("invalid task number"),
-        },
-        None => {
-            task1(input)?;
-            task2(input)?;
-        }
-    }
+    task1(input)?;
+    task2(input)?;
     Ok(())
-}
-
-#[cfg(test)]
-mod tests {
-    use rstest::*;
-
-    #[rstest]
-    fn test_task1() -> Result<(), anyhow::Error> {
-        Ok(())
-    }
-
-    #[rstest]
-    fn test_task2() -> Result<(), anyhow::Error> {
-        Ok(())
-    }
 }
