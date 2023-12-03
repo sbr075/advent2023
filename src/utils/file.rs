@@ -1,5 +1,5 @@
 use std::{
-    fs::File,
+    fs::{self, File},
     io::{prelude::*, BufReader},
 };
 
@@ -12,4 +12,9 @@ pub fn read_input() -> Result<Vec<String>, anyhow::Error> {
         .collect();
 
     Ok(lines)
+}
+
+pub fn read_to_string() -> Result<String, anyhow::Error> {
+    let string = fs::read_to_string("src/input.txt")?;
+    Ok(string)
 }

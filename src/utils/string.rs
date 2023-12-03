@@ -12,6 +12,10 @@ pub fn find_first(string: &String, regex: &str) -> Result<String, anyhow::Error>
 }
 
 pub fn split_string(string: &String, pat: &str) -> Result<Vec<String>, anyhow::Error> {
-    let result: Vec<String> = string.split(pat).map(|e| e.to_string()).collect();
+    let result: Vec<String> = string
+        .split(pat)
+        .filter(|e| !e.is_empty())
+        .map(|e| e.to_string())
+        .collect();
     Ok(result)
 }
